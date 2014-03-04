@@ -229,11 +229,10 @@ Translations of the guide are available in the following languages:
     (arguably) a bit more readable. As with hashes - pick one style
     and apply it consistently.
 
-* No spaces after `(`, `[` or before `]`, `)`.
+* No spaces after `(`, or before `)`.
 
     ```Ruby
     some(arg).other
-    [1, 2, 3].length
     ```
 
 * Indent `when` as deep as `case`. I know that many would disagree
@@ -534,8 +533,7 @@ modules). Never use `::` for method invocation.
     x = !something
     ```
 
-* The `and` and `or` keywords are banned. It's just not worth
-  it. Always use `&&` and `||` instead.
+* The `and` and `or` keywords are only to be used as flow control operators. Usually, you will need `&&` and `||` instead.
 
     ```Ruby
     # bad
@@ -544,8 +542,11 @@ modules). Never use `::` for method invocation.
       do_something
     end
 
-    # control flow
     document.saved? or document.save!
+    
+    if (name = User.name).present?
+      do_something_with_name(name)
+    end
 
     # good
     # boolean expression
@@ -553,8 +554,13 @@ modules). Never use `::` for method invocation.
       do_something
     end
 
-    # control flow
+    #good
     document.saved? || document.save!
+    
+    #good
+    if name = User.name and name.present?
+      do_something_with_name(name)
+    end
     ```
 
 * Avoid multi-line `?:` (the ternary operator); use `if/unless` instead.
